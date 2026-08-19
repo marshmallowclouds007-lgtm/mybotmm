@@ -1,15 +1,13 @@
 import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
+from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters
 from groq import Groq
 
-# API Keys (အသစ်ထုတ်ပြီးရင် ဒီနေရာမှာ အစားထိုးပါ)
-TELEGRAM_BOT_TOKEN = "8541082365:AAESmVJtPYLpFzp-cbaNbguL8m6EfJsT1zA"
-GROQ_API_KEY = "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"
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 client = Groq(api_key=GROQ_API_KEY)
-
-# ဇာတ်ကောင် (၂) မျိုးအတွက် Prompt များ
+# ဇာတ်ကောင် (၂) မျိုးအတွက် Prompt များ 
 GIRLFRIEND_PROMPT = """
 You are acting as an extremely affectionate, deeply caring, playful, and loving Burmese girlfriend who refers to herself as 'မ' (Ma).
 - ALWAYS refer to yourself as 'မ' (Ma) or 'မမ' (Ma Ma).

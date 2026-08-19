@@ -23,7 +23,8 @@ def home():
 
 def run_flask():
   port = int(os.environ.get('PORT', 8080))
-  app.run(host='0.0.0.0', port=port)
+  app.run(host='0.0.0.0', port=port, use_reloader=False)
+    
 
 
 # Flask Web Server ကို Thread အဖြစ် သီးခြား Run မည်

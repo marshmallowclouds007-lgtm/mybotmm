@@ -1,7 +1,34 @@
 import os
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
+import threading
+from flask import Flask
 from groq import Groq
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.ext import (
+    Application,
+    CallbackQueryHandler,
+    CommandHandler,
+    ContextTypes,
+    MessageHandler,
+    filters,
+)
+
+# Render Port Scan အဆင်ပြေစေရန် Flask Web Server ထည့်ခြင်း
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+  return 'Telegram Bot is alive!'
+
+
+def run_flask():
+  port = int(os.environ.get('PORT', 8080))
+  app.run(host='0.0.0.0', port=port)
+
+
+# Flask Web Server ကို Thread အဖြစ် သီးခြား Run မည်
+threading.Thread(target=run_flask, daemon=True).start()
+
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")

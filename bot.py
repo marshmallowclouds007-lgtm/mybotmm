@@ -92,8 +92,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             max_tokens=300
         )
         await update.message.reply_text(completion.choices[0].message.content)
-    except:
-        await update.message.reply_text("မမ အခု စာပို့လို့ မရဖြစ်သွားလို့ပါ ကလေးရယ် 🥺")
+        except Exception as e:
+      await update.message.reply_text(f'Groq Error: {str(e)}')
 
 def main():
     app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
